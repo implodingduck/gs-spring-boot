@@ -10,8 +10,12 @@ public class HelloController {
 	public String index() {
 		Map<String, String> env = System.getenv();
 		StringBuilder sb = new StringBuilder("Greetings from Spring Boot!");
-		String state = (System.getenv("EUREKA_INSTANCE_INITIALSTATUS").equals("UP")) ? "Active" : "Staging";
-		sb.append(state);
+		String initialstatus = System.getenv("EUREKA_INSTANCE_INITIALSTATUS");
+		if (initialstatus != null){
+			String state = (initialstatus.equals("UP")) ? "Active" : "Staging";
+			sb.append(state);
+		}
+		
 		sb.append("<hr />");
 		for (String envName : env.keySet()) {
 			sb.append(envName);
